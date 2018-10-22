@@ -1,2 +1,2 @@
 # node-command
-node command
+> node command

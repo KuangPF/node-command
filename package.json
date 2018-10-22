@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "node command",
   "main": "index.js",
+  "bin": {
+    "command-cli": "./bin/command.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/KuangPF/node-command/issues"
   },
-  "homepage": "https://github.com/KuangPF/node-command#readme"
+  "homepage": "https://github.com/KuangPF/node-command#readme",
+  "dependencies": {
+    "commander": "^2.19.0"
+  }
 }
