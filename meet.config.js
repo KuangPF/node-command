@@ -1,3 +1,3 @@
 module.exports = {
-  apiProt: 3110
+  apiPort: 3110
 }
