@@ -1,7 +1,22 @@
 #!/usr/bin/env node
 
 const program = require('commander')
+const semver = require('semver')
 const chalk = require('chalk')
+
+const requiredVersion = require('../package.json').engines.node
+
+function checkNodeVersion(wanted, id) {
+  if (!semver.satisfies(process.version, wanted)) {
+    console.log(chalk.red(
+      'You are using Node ' + process.version + ', but this version of ' + id +
+      ' requires Node ' + wanted + '.\nPlease upgrade your Node version.'
+    ))
+    process.exit(1)
+  }
+}
+
+checkNodeVersion(requiredVersion, 'vue-cli')
 
 program
   .version(require('../package.json').version, '-V, --version')
@@ -10,8 +25,7 @@ program
 program
   .command('init <project-name>')
   .description('create a new project powered by ivue-cli')
-  .action(function () {
-  })
+  .action(function () {})
 
 program
   .arguments('<command>')
