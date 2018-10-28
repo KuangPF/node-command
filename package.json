@@ -1,29 +1,32 @@
 {
-  "name": "node-command",
+  "name": "node-command-ivue",
   "version": "1.0.0",
-  "description": "node command",
+  "description": "node command ivue",
   "main": "index.js",
   "bin": {
-    "ivue": "./bin/vue.js"
+    "ivue": "./bin/ivue.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/KuangPF/node-command.git"
+    "url": "git+https://github.com/KuangPF/node-command-ivue.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/KuangPF/node-command/issues"
+    "url": "https://github.com/KuangPF/node-command-ivue/issues"
   },
-  "homepage": "https://github.com/KuangPF/node-command#readme",
+  "homepage": "https://github.com/KuangPF/node-command-ivue#readme",
   "dependencies": {
     "chalk": "^2.4.1",
     "co": "^4.6.0",
     "commander": "^2.19.0",
     "figlet": "^1.2.1",
     "fs": "0.0.1-security"
+  },
+  "engines": {
+    "node": ">=8.9"
   }
 }
