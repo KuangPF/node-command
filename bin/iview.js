@@ -8,12 +8,9 @@ program
   .version(require('../package.json').version, '-v, --version')
 
 program
-  .command('rm <ddd>')
-  .option('-r, --recursive', 'Remove recursively')
-  .action(function (dir, cmd) {
-    console.log('remove ' + dir + (cmd.recursive ? ' recursively' : ''))
+  .command('init <project-name>')
+  .action(function (projectName) {
+    init(projectName)
   })
 
 program.parse(process.argv)
-
-// program.parse(process.argv)
