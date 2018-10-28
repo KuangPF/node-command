@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const program = require('commander')
-const init = require('../lib/init') // init
+const chalk = require('chalk')
 
 program
   .version(require('../package.json').version, '-V, --version')
@@ -9,16 +9,15 @@ program
 
 program
   .command('init <project-name>')
-  .description('create a new project powered by iview-cli')
-  .action(function (projectName) {
-    program.outputHelp()
-    // init(projectName)
+  .description('create a new project powered by ivue-cli')
+  .action(function () {
   })
 
 program
   .arguments('<command>')
   .action((cmd) => {
     program.outputHelp()
+    console.log()
     console.log(`  ` + chalk.red(`Unknown command ${chalk.yellow(cmd)}.`))
     console.log()
   })

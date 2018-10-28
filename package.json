@@ -4,7 +4,7 @@
   "description": "node command",
   "main": "index.js",
   "bin": {
-    "iview": "./bin/iview.js"
+    "ivue": "./bin/vue.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
