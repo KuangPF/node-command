@@ -16,7 +16,7 @@ function checkNodeVersion(wanted, id) {
   }
 }
 
-checkNodeVersion(requiredVersion, 'vue-cli')
+checkNodeVersion(requiredVersion, 'ivue-cli')
 
 program
   .version(require('../package.json').version, '-V, --version')
