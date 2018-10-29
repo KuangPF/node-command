@@ -3,6 +3,7 @@
 const program = require('commander')
 const semver = require('semver')
 const chalk = require('chalk')
+const loadCommand = require('../lib/util/loadCommand')
 
 const requiredVersion = require('../package.json').engines.node
 
@@ -25,7 +26,9 @@ program
 program
   .command('init <project-name>')
   .description('create a new project powered by ivue-cli')
-  .action(function () {})
+  .action(function () {
+    loadCommand('init', '../init')
+  })
 
 program
   .arguments('<command>')
