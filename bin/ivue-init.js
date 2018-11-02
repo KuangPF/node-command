@@ -7,6 +7,10 @@ const exists = require('fs').existsSync
 const path = require('path')
 const logger = require('../lib/logger')
 
+const localPath = require('../lib/local-path')
+const isLocalPath = localPath.isLocalPath
+const getTemplatePath = localPath.getTemplatePath
+
 program
   .usage('<template-name> [project-name]')
   .option('-c, --clone', 'use git clone')
@@ -42,6 +46,7 @@ help()
 /**
  * Setting.
  */
+let template = program.args[0]
 
 const rawName = program.args[1]
 const inPlace = !rawName || rawName === '.'
@@ -71,5 +76,10 @@ if (inPlace || exists(to)) {
  */
 
 function run() {
-  console.log('download templete form github')
+  // check if template is local
+  if (isLocalPath(template)) {
+
+  } else {
+    console.log('no local template')
+  }
 }
