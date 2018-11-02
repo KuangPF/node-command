@@ -1,10 +1,15 @@
 #!/usr/bin/env node
 
+const download = require('download-git-repo')
 const program = require('commander')
 const inquirer = require('inquirer')
 const chalk = require('chalk')
 const exists = require('fs').existsSync
 const path = require('path')
+const home = require('user-home')
+const rm = require('rimraf').sync
+const ora = require('ora')
+
 const logger = require('../lib/logger')
 
 const localPath = require('../lib/local-path')
@@ -56,6 +61,12 @@ const inPlace = !rawName || rawName === '.'
 const to = path.resolve(rawName || '.')
 const name = inPlace ? path.relative('../', process.cwd()) : rawName
 
+const tmp = path.join(home, '.vue-templates', template.replace(/[\/:]/g, '-'))
+if (program.offline) {
+  console.log(`> Use cached template at ${chalk.yellow(tildify(tmp))}`)
+  template = tmp
+}
+
 /**
  * Padding.
  */
@@ -97,7 +108,6 @@ function run() {
           warnings.v2SuffixTemplatesDeprecated(template, inPlace ? '' : name)
           return
         }
-
         // warnings.v2BranchIsNowDefault(template, inPlace ? '' : name)
         downloadAndGenerate(officialTemplate)
       }
@@ -114,5 +124,8 @@ function run() {
  */
 
 function downloadAndGenerate() {
-  console.log('downing.....')
+  const spinner = ora('downloading template')
+  spinner.start()
+  // Remove if local template exists
+  if (exists(tmp)) rm(tmp)
 }
