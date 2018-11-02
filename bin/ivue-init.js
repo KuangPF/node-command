@@ -1,5 +1,8 @@
+#!/usr/bin/env node
+
 const program = require('commander')
 const inquirer = require('inquirer')
+const chalk = require('chalk')
 
 program
   .usage('<template-name> [project-name]')
@@ -27,17 +30,23 @@ program.on('--help', () => {
  * Help.
  */
 
-function help () {
+function help() {
   program.parse(process.argv)
   if (program.args.length < 1) return program.help()
 }
 help()
 
+
+/**
+ * Setting.
+ */
+const rawName = program.args[1]
+const inPlace = !rawName || rawName === '.'
 inquirer.prompt([{
   type: 'confirm',
-  message: inPlace
-    ? 'Generate project in current directory?'
-    : 'Target directory exists. Continue?',
+  message: inPlace ?
+    'Generate project in current directory?' :
+    'Target directory exists. Continue?',
   name: 'ok'
 }]).then(answers => {
   if (answers.ok) {
