@@ -3,6 +3,9 @@
 const program = require('commander')
 const inquirer = require('inquirer')
 const chalk = require('chalk')
+const exists = require('fs').existsSync
+const path = require('path')
+const logger = require('../lib/logger')
 
 program
   .usage('<template-name> [project-name]')
@@ -36,20 +39,37 @@ function help() {
 }
 help()
 
-
 /**
  * Setting.
  */
+
 const rawName = program.args[1]
 const inPlace = !rawName || rawName === '.'
-inquirer.prompt([{
-  type: 'confirm',
-  message: inPlace ?
-    'Generate project in current directory?' :
-    'Target directory exists. Continue?',
-  name: 'ok'
-}]).then(answers => {
-  if (answers.ok) {
-    run()
-  }
-}).catch(logger.fatal)
+const to = path.resolve(rawName || '.')
+
+/**
+ * Padding.
+ */
+
+if (inPlace || exists(to)) {
+  inquirer.prompt([{
+    type: 'confirm',
+    message: inPlace ?
+      'Generate project in current directory?' : 'Target directory exists. Continue?',
+    name: 'ok',
+  }]).then(answers => {
+    if (answers.ok) {
+      run()
+    }
+  }).catch(logger.fatal)
+} else {
+  run()
+}
+
+/**
+ * Check, download and generate the project.
+ */
+
+function run() {
+  console.log('download templete form github')
+}
