@@ -11,6 +11,8 @@ const localPath = require('../lib/local-path')
 const isLocalPath = localPath.isLocalPath
 const getTemplatePath = localPath.getTemplatePath
 
+const warnings = require('../lib/warnings')
+
 program
   .usage('<template-name> [project-name]')
   .option('-c, --clone', 'use git clone')
@@ -47,10 +49,12 @@ help()
  * Setting.
  */
 let template = program.args[0]
+const hasSlash = template.indexOf('/') > -1
 
 const rawName = program.args[1]
 const inPlace = !rawName || rawName === '.'
 const to = path.resolve(rawName || '.')
+const name = inPlace ? path.relative('../', process.cwd()) : rawName
 
 /**
  * Padding.
@@ -80,6 +84,35 @@ function run() {
   if (isLocalPath(template)) {
 
   } else {
-    console.log('no local template')
+    // vue-cli 做了版本的比较，这里就先忽略这个...   checkVersion
+    // 判断使用官方文档还是使用 github 自定义模板
+    if (!hasSlash) {
+      // use official templates
+      const officialTemplate = 'vuejs-templates/' + template
+      if (template.indexOf('#') !== -1) {
+        downloadAndGenerate(officialTemplate)
+      } else {
+        if (template.indexOf('-2.0') !== -1) {
+          // 提示带“-2.0”的模板已经弃用了，官方模板默认用2.0了。不需要用“-2.0”来区分vue1.0和vue2.0了。
+          warnings.v2SuffixTemplatesDeprecated(template, inPlace ? '' : name)
+          return
+        }
+
+        // warnings.v2BranchIsNowDefault(template, inPlace ? '' : name)
+        downloadAndGenerate(officialTemplate)
+      }
+    } else {
+      downloadAndGenerate(template)
+    }
   }
+}
+
+/**
+ * Download a generate from a template repo.
+ *
+ * @param {String} template
+ */
+
+function downloadAndGenerate() {
+  console.log('downing.....')
 }
