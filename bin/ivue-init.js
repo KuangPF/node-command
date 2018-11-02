@@ -11,7 +11,7 @@ const rm = require('rimraf').sync
 const ora = require('ora')
 
 const logger = require('../lib/logger')
-
+const generate = require('../lib/generate')
 const localPath = require('../lib/local-path')
 const isLocalPath = localPath.isLocalPath
 const getTemplatePath = localPath.getTemplatePath
@@ -60,6 +60,7 @@ const rawName = program.args[1]
 const inPlace = !rawName || rawName === '.'
 const to = path.resolve(rawName || '.')
 const name = inPlace ? path.relative('../', process.cwd()) : rawName
+const clone = program.clone || false
 
 const tmp = path.join(home, '.vue-templates', template.replace(/[\/:]/g, '-'))
 if (program.offline) {
@@ -112,6 +113,7 @@ function run() {
         downloadAndGenerate(officialTemplate)
       }
     } else {
+      console.log('sss')
       downloadAndGenerate(template)
     }
   }
@@ -128,4 +130,15 @@ function downloadAndGenerate() {
   spinner.start()
   // Remove if local template exists
   if (exists(tmp)) rm(tmp)
+  download(template, tmp, {
+    clone
+  }, err => {
+    spinner.stop()
+    if (err) logger.fatal('Failed to download repo ' + template + ': ' + err.message.trim())
+    generate(name, tmp, to, err => {
+      if (err) logger.fatal(err)
+      console.log()
+      logger.success('Generated "%s".', name)
+    })
+  })
 }
