@@ -1,4 +1,5 @@
 const program = require('commander')
+const inquirer = require('inquirer')
 
 program
   .usage('<template-name> [project-name]')
@@ -31,3 +32,15 @@ function help () {
   if (program.args.length < 1) return program.help()
 }
 help()
+
+inquirer.prompt([{
+  type: 'confirm',
+  message: inPlace
+    ? 'Generate project in current directory?'
+    : 'Target directory exists. Continue?',
+  name: 'ok'
+}]).then(answers => {
+  if (answers.ok) {
+    run()
+  }
+}).catch(logger.fatal)
