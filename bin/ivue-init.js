@@ -113,7 +113,6 @@ function run() {
         downloadAndGenerate(officialTemplate)
       }
     } else {
-      console.log('sss')
       downloadAndGenerate(template)
     }
   }
@@ -125,7 +124,7 @@ function run() {
  * @param {String} template
  */
 
-function downloadAndGenerate() {
+function downloadAndGenerate(template) {
   const spinner = ora('downloading template')
   spinner.start()
   // Remove if local template exists
@@ -135,10 +134,10 @@ function downloadAndGenerate() {
   }, err => {
     spinner.stop()
     if (err) logger.fatal('Failed to download repo ' + template + ': ' + err.message.trim())
-    generate(name, tmp, to, err => {
+    /* generate(name, tmp, to, err => {
       if (err) logger.fatal(err)
       console.log()
       logger.success('Generated "%s".', name)
-    })
+    }) */
   })
 }
