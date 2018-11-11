@@ -24,6 +24,7 @@
     "chalk": "^2.4.1",
     "co": "^4.6.0",
     "commander": "^2.19.0",
+    "consolidate": "^0.15.1",
     "download-git-repo": "^1.1.0",
     "execa": "^1.0.0",
     "figlet": "^1.2.1",
