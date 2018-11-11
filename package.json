@@ -36,6 +36,7 @@
     "metalsmith-layouts": "^2.3.0",
     "metalsmith-markdown": "^1.1.0",
     "metalsmith-permalinks": "^2.0.0",
+    "multimatch": "^2.1.0",
     "ora": "^3.0.0",
     "read-metadata": "^1.0.0",
     "rimraf": "^2.6.2",
