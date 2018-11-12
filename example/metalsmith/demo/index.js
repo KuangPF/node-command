@@ -1,5 +1,7 @@
 const Metalsmith = require('metalsmith')
 const Layouts = require('metalsmith-layouts')
+const markdown = require('metalsmith-markdown')
+const permalinks  = require('metalsmith-permalinks');
 
 Metalsmith(__dirname)
   .metadata({
@@ -10,6 +12,8 @@ Metalsmith(__dirname)
   .source('./src')
   .destination('./build')
   .clean(true)
+  .use(markdown())
+  .use(permalinks())
   .use(Layouts({
     engine: 'handlebars'
   }))
